@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]==0.30.0
+google-generativeai
+chatterbot
+chatterbot-corpus
+python-dotenv==1.0.1
+pydantic
+spacy
