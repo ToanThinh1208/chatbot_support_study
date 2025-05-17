@@ -38,8 +38,8 @@ chatbot = ChatBot(
         #"import_path":"chatterbot.logic.UnitConversion", # Cho phép bot chuyển đổi các đơn vị tốt nghiệp
         #"import_path":"chatterbot.logic.SpecificResponseAdapter", # Cho phép bot trả lời các câu hỏi tốt nghiệp
         #"import_path":"chatterbot.logic.MathematicalEvaluation", # Cho phép bot thực hiện các phép toán cơ bản
-        #"default_response": "Xin lỗi, tôi không hiểu câu hỏi của bạn.",
-        "maximum_similarity_threshold": 0.50, # Ngưỡng tương đồng tối đa cho phản hồi
+        "default_response": "Xin lỗi, tôi không hiểu câu hỏi của bạn.",
+        "maximum_similarity_threshold": 0.90, # Ngưỡng tương đồng tối đa cho phản hồi
         },
         
         
@@ -139,8 +139,21 @@ async def chat_endpoint(request: ChatRequest):
     if user_message.strip() == "":
         raise HTTPException(status_code=400, detail="Message không được để trống.")
     # Gọi Gemini API
-
+    default_response = "Xin lỗi, tôi không hiểu câu hỏi của bạn."
     try:
+        if user_message != "":
+            chatbot_response = chatbot.get_response(user_message)
+            if chatbot_response.text != default_response:
+                print(f"ChatterBot trả lời: {chatbot_response.text}")
+                return ChatResponse(reply=chatbot_response.text, source="chatterbot")
+            else:
+                print("ChatterBot không trả lời được, chuyển sang Gemini.")
+                raise Exception("ChatterBot không trả lời được.")
+        else:
+            print(f"ChatterBot gặp lỗi: {e}")
+            raise Exception("ChatterBot không trả lời được.")
+
+    except Exception as e:
         # Xây dựng prompt cho Gemini 
         prompt = f"""Bạn là một trợ lý AI thông minh và thân thiện, chuyên hỗ trợ giải đáp các câu hỏi liên quan 
         đến bài tập hoặc nghiên cứu cho học sinh. Hãy trả lời một cách dễ hiểu, rõ ràng và chính xác. 
@@ -160,18 +173,6 @@ async def chat_endpoint(request: ChatRequest):
             raise Exception("Gemini không trả lời được.") # Chuyển sang ChatterBot
     except Exception as e:
         print(f"Gemini gặp lỗi: {e}")
-        
-    try:
-    # Gọi ChatterBot
-        if user_message != "":
-            chatbot_response = chatbot.get_response(user_message)
-            print(f"ChatterBot trả lời: {chatbot_response.text}")
-            return ChatResponse(reply=chatbot_response.text, source="chatterbot")
-        else:
-            print(f"ChatterBot gặp lỗi: {e}")
-            raise Exception("ChatterBot không trả lời được.")
-    except Exception as e:
-        print(f"ChatterBot gặp lỗi hoặc không trả lời: {e}")
         return ChatResponse(reply="Xin lỗi, tôi không thể trả lời câu hỏi này.", source="error")
 
 
