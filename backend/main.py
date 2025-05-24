@@ -39,7 +39,7 @@ chatbot = ChatBot(
         #"import_path":"chatterbot.logic.SpecificResponseAdapter", # Cho phép bot trả lời các câu hỏi tốt nghiệp
         #"import_path":"chatterbot.logic.MathematicalEvaluation", # Cho phép bot thực hiện các phép toán cơ bản
         "default_response": "Xin lỗi, tôi không hiểu câu hỏi của bạn.",
-        "maximum_similarity_threshold": 0.90, # Ngưỡng tương đồng tối đa cho phản hồi
+        "maximum_similarity_threshold": 0.60, # Ngưỡng tương đồng tối đa cho phản hồi
         },
         
         
@@ -160,7 +160,11 @@ async def chat_endpoint(request: ChatRequest):
         Nếu không biết hãy nói là bạn không biết. 
         Không bịa đặt thông tin.
         Câu hỏi của tôi là: {user_message}
-        Câu trả lời của bạn: """
+        Câu trả lời của bạn: 
+
+        Hãy tối ưu prompt của bạn bằng cách nghĩ từng bước, nhưng phải giữ lại một bản nháp tối thiểu cho mỗi bước suy nghĩ, với tối đa 5 từ. 
+        Phản hồi của bạn phải ngắn gọn, súc tích và dễ hiểu.
+        """
 
         gemini_response = gemini_model.generate_content(prompt)
 

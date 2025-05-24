@@ -1,14 +1,55 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
-</head>
-<body>
-    
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chatbot Hỗ Trợ Học Tập</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="chat-bot-container vh-100">
+        <!-- Header -->
+        <div class="card_header bg-primary text-white">
+          <h3 class="text-header text-center">Chatbot Hỗ Trợ Học Tập</h3>
+        </div>
+        <!-- Body -->
+        <div class="chat-body border-5 border-primary">
+          <!-- Chat messages -->
+          <div class="chat-messages" id="chatMessages">
+            <!-- Tin nhắn sẽ được thêm vào đây -->
+            <div class="bot-message">
+              <div class="message-content ">
+                <span class="text_bot border-5 border-primary">Chào bạn! Tôi có thể giúp gì cho bạn hôm nay?</span>
+              </div>
+            </div>
+            <div class="user-message text-end ">
+              <span class="text_user border-5 border-primary">Xin chào</span>
+          </div>
+          <!-- Chat input -->
+          <div class="fixed-bottom bg-light p-3 border-top shadow-lg">
+            <div class="container">
+                <div class="input-group d-flex gap-3">
+                    <input type="text" class="form-control" placeholder="Nhập câu hỏi của bạn..." aria-label="Nhập câu hỏi của bạn">
+                    <button class="btn btn-primary" type="button">Gửi</button>
+                </div>
+            </div>
+        </div>
+          
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./script.js"></script>
+  </body>
 </html>
